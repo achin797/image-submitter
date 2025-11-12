@@ -3,6 +3,7 @@
 import {useState} from "react";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
+
 import {
   Dialog,
   DialogContent,
@@ -11,18 +12,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-
-interface WorkoutData {
-  distance: number;
-  distanceUnit: string;
-  timeTaken: number;
-  pace: number | null;
-  paceUnit: string | null;
-  startTime: string; // ISO 8601 date-time string
-  endTime: string;   // ISO 8601 date-time string
-  recordDate: string | null;
-  explanation: string;
-}
+import WorkoutData from "@/app/types/WorkoutData";
 
 export default function Home() {
 
@@ -43,7 +33,7 @@ export default function Home() {
       redirect: "follow" as RequestRedirect
     };
 
-    const response = await fetch("https://glutinously-inquisitive-tammara.ngrok-free.app/fitness", requestOptions)
+    const response = await fetch("/submit", requestOptions);
     const result: WorkoutData = await response.json();
     setWorkoutData(result);
     setIsFetching(false);
